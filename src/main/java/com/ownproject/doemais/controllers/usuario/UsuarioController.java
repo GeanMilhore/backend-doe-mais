@@ -14,29 +14,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/usuarios")
+@RestController
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/cadastrar")
+    @PostMapping
     public ResponseEntity<UsuarioCreatedDto> cadastrarNovoUsuario(@RequestBody @Valid UsuarioPostDto usuario){
         UsuarioCreatedDto usuarioResponse = usuarioService.cadastrarNovoUsuario(usuario);
         return new ResponseEntity<>(usuarioResponse, HttpStatusCode.valueOf(HttpStatus.CREATED.value()));
     }
 
-    @PostMapping("/editar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UsuarioDto> editarUsuario(@RequestParam("id") Long idUsuario,
                                                     @RequestBody @Valid UsuarioEditDto usuario){
         UsuarioDto usuarioResponse = usuarioService.editarUsuario(idUsuario, usuario);
         return new ResponseEntity<>(usuarioResponse, HttpStatusCode.valueOf(HttpStatus.OK.value()));
-    }
-
-    @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> excluirUsuario(@RequestParam("id") Long idUsuario){
-        usuarioService.excluirUsuario(idUsuario);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
@@ -45,9 +40,15 @@ public class UsuarioController {
         return new ResponseEntity<>(detalhesUsuario, HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     public ResponseEntity<List<UsuarioDto>> detalharTodosUsuario(){
         List<UsuarioDto> detalhesUsuarios = usuarioService.detalharTodosUsuario();
         return new ResponseEntity<>(detalhesUsuarios, HttpStatusCode.valueOf(HttpStatus.OK.value()));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> excluirUsuario(@RequestParam("id") Long idUsuario){
+        usuarioService.excluirUsuario(idUsuario);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

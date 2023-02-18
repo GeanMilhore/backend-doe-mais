@@ -11,6 +11,7 @@ import com.ownproject.doemais.mappers.usuario.UserMapper;
 import com.ownproject.doemais.models.usuario.Usuario;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
 import com.ownproject.doemais.utils.data.DateUtil;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class UsuarioService {
     @Autowired
     private UserMapper userMapper;
 
+    @Transactional
     public UsuarioCreatedDto cadastrarNovoUsuario(UsuarioPostDto usuarioPostDto) {
         Usuario novoUsuario = userMapper.usuarioPostDtoToEntity(usuarioPostDto);
         novoUsuario.setStatus(StatusConta.ATIVO);
@@ -42,6 +44,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new DomainException("Tipo de usuário inexistente."));
     }
 
+    @Transactional
     public void excluirUsuario(Long idUsuario) {
         encontrarUsuario(idUsuario);
         usuarioRepository.deleteById(idUsuario);
@@ -55,6 +58,7 @@ public class UsuarioService {
         return userMapper.toUsuarioDto(encontrarUsuario(idUsuario));
     }
 
+    @Transactional
     public UsuarioDto editarUsuario(Long idUsuario, UsuarioEditDto usuarioEditDto) {
         Usuario usuarioOriginal = encontrarUsuario(idUsuario);
         usuarioOriginal.setNome(usuarioEditDto.getNome());
