@@ -9,16 +9,13 @@ import lombok.Data;
 @Builder
 public class UsuarioPostDto {
 
-    @NotEmpty(message = "O tipo do usuário é obrigatório.")
+    @NotEmpty
     private String tipoUsuario;
 
-    @NotEmpty(message = "O nome do usuário é obrigatório.")
-    private String nomeUsuario;
-
-    @NotEmpty(message = "O email do usuário é obrigatório.")
+    @NotEmpty
     @Email
     private String email;
 
-    @NotEmpty(message = "A senha do usuário é obrigatória.")
+    @NotEmpty
     private String senhaUsuario;
 }

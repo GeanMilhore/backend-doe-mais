@@ -61,7 +61,6 @@ public class UsuarioService {
     @Transactional
     public UsuarioDto editarUsuario(Long idUsuario, UsuarioEditDto usuarioEditDto) {
         Usuario usuarioOriginal = encontrarUsuario(idUsuario);
-        usuarioOriginal.setNome(usuarioEditDto.getNome());
         return userMapper.toUsuarioDto(usuarioRepository.save(usuarioOriginal));
     }
 

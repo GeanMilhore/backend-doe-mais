@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class BaseConta {
     @Enumerated(EnumType.STRING)
     protected StatusConta status;
-    protected String nome;
     protected LocalDateTime dataCriacao;
     protected LocalDateTime dataUltimaEdicao;
     protected LocalDateTime dataExclusao;

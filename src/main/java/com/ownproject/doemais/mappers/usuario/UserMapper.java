@@ -18,7 +18,6 @@ public class UserMapper {
         modelMapper = new ModelMapper();
         modelMapper.createTypeMap(Usuario.class, UsuarioCreatedDto.class)
                 .addMapping(Usuario::getId, UsuarioCreatedDto::setId)
-                .addMapping(Usuario::getNome, UsuarioCreatedDto::setNome)
                 .addMapping(Usuario::getEmail, UsuarioCreatedDto::setEmail)
                 .addMapping(Usuario::getDataCriacao, UsuarioCreatedDto::setDataCriacao);
     }

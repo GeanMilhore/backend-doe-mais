@@ -24,6 +24,8 @@ public class Organizacao extends BaseConta {
 
     private Long idUsuario;
 
+    private String nome;
+
     private String cnpj;
 
     @Enumerated(EnumType.STRING)

@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class PessoaCreatedDto extends BaseContaDto {
 
+    private String nome;
     private String cpf;
-
     private Date dataNascimento;
 }

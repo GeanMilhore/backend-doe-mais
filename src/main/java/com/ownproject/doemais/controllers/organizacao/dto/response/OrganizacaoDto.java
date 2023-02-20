@@ -1,24 +1,18 @@
-package com.ownproject.doemais.controllers.pessoa.dto.response;
+package com.ownproject.doemais.controllers.organizacao.dto.response;
 
 import com.ownproject.doemais.controllers.baseConta.dto.BaseContaDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
-public class PessoaDto extends BaseContaDto {
+public class OrganizacaoDto extends BaseContaDto {
 
     private Long id;
-
     private Long idUsuario;
-
     private String nome;
-
-    private String cpf;
-
-    private Date dataNascimento;
-
+    private String cnpj;
+    private String razaoSocial;
+    private Long idadeInstituicao;
 
 }

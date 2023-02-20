@@ -10,11 +10,14 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PessoaPostDto {
-    @NotBlank(message = "O campo nome é obrigatório")
+
+    @NotNull
+    private Long idUsuario;
+    @NotBlank
     protected String nome;
-    @NotBlank(message = "O campo cpf é obrigatório")
+    @NotBlank
     private String cpf;
-    @NotNull(message = "O campo data de nascimento é obrigatório")
+    @NotNull
     private Date dataNascimento;
 
 }

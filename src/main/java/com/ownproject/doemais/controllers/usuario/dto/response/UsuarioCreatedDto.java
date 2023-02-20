@@ -17,8 +17,6 @@ public class UsuarioCreatedDto {
 
     protected StatusConta status;
 
-    private String nome;
-
     private String tipoUsuario;
 
     private String email;

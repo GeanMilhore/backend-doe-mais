@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 public class UsuarioEditDto {
 
     @NotEmpty
-    protected String nome;
+    protected String email;
 }

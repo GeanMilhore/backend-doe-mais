@@ -8,6 +8,7 @@ import com.ownproject.doemais.mappers.pessoa.PessoaMapper;
 import com.ownproject.doemais.models.conta.enums.StatusConta;
 import com.ownproject.doemais.models.pessoa.Pessoa;
 import com.ownproject.doemais.repositories.pessoa.PessoaRepository;
+import com.ownproject.doemais.services.usuario.UsuarioService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ import java.util.List;
 
 @Service
 public class PessoaService {
-
     @Autowired
     private PessoaRepository pessoaRepository;
-    
+    @Autowired
+    private UsuarioService usuarioService;
     @Autowired
     private PessoaMapper pessoaMapper;
 
@@ -43,6 +44,7 @@ public class PessoaService {
 
     @Transactional
     public PessoaCreatedDto criarNovaPessoa(PessoaPostDto pessoaDTO) {
+        usuarioService.encontrarUsuario(pessoaDTO.getIdUsuario());
         Pessoa pessoa = pessoaMapper.pessoaPostDtoToEntity(pessoaDTO);
         pessoa.setStatus(StatusConta.ATIVO);
         pessoa.setDataCriacao(DateUtil.dataDeHoje());

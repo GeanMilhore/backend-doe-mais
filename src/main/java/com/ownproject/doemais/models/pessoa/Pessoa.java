@@ -24,6 +24,8 @@ public class Pessoa extends BaseConta {
 
     private Long idUsuario;
 
+    private String nome;
+
     private String cpf;
 
     private Date dataNascimento;
