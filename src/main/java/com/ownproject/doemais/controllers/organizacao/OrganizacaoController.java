@@ -4,8 +4,8 @@ import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoEdi
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPostDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoDto;
-import com.ownproject.doemais.services.authentication.AuthenticationService;
 import com.ownproject.doemais.services.organizacao.OrganizacaoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,13 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/organizacoes")
+@SecurityRequirement(name = "bearer-key")
 public class OrganizacaoController {
 
     @Autowired
     private OrganizacaoService organizacaoService;
 
-    @Autowired
-    private AuthenticationService authenticationService;
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizacaoDto> detalharOrganizacao(@PathVariable Long id) {

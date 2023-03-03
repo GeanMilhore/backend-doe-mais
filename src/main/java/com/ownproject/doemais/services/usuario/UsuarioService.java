@@ -31,7 +31,6 @@ public class UsuarioService {
     public UsuarioCreatedDto cadastrarNovoUsuario(UsuarioPostDto usuarioPostDto) {
         Usuario novoUsuario = userMapper.usuarioPostDtoToEntity(usuarioPostDto);
         novoUsuario.setStatus(StatusConta.ATIVO);
-        novoUsuario.setTipoUsuario(pegarTipoUsuarioEnum(usuarioPostDto));
         LocalDateTime hoje = DateUtil.dataDeHoje();
         novoUsuario.setDataCriacao(hoje);
         novoUsuario.setDataUltimaEdicao(hoje);

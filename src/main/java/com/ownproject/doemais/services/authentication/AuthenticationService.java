@@ -1,36 +1,20 @@
 package com.ownproject.doemais.services.authentication;
 
+import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-
 @Service
-public class AuthenticationService {
+public class AuthenticationService implements UserDetailsService {
 
-    /*
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-        TODO - Configurar autenticação e autorização JWT nas configurações Spring
-
-          public boolean hasPermission(Principal principal, Long id) {
-                // Verificar se o usuário é o proprietário da pessoa ou é um administrador com permissão
-                return isOwner(principal, id) || isAdmin(principal);
-            }
-
-            private boolean isOwner(Principal principal, Long id) {
-                String username = principal.getName();
-                Pessoa pessoa = pessoaRepository.findById(id)
-                        .orElseThrow(() -> new NotFoundException("Pessoa não encontrada com ID: " + id));
-                return pessoa.getUsuario().getUsername().equals(username);
-            }
-
-            private boolean isAdmin(Principal principal) {
-                // Implementar lógica para verificar se o usuário é um administrador
-                return false;
-            }
-
-    * */
-
-    public boolean hasPermission(Principal principal, Long id){
-        return true;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 }
