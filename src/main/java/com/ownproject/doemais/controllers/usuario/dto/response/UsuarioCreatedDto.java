@@ -1,6 +1,6 @@
 package com.ownproject.doemais.controllers.usuario.dto.response;
 
-import com.ownproject.doemais.models.conta.enums.StatusConta;
+import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.ownproject.doemais.controllers.usuario.dto.response;
 
-import com.ownproject.doemais.controllers.baseConta.dto.BaseContaDto;
-import com.ownproject.doemais.models.usuario.enums.TipoUsuario;
+import com.ownproject.doemais.controllers.baseConta.BaseContaDto;
+import com.ownproject.doemais.domain.usuario.enums.TipoUsuario;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

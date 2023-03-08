@@ -5,9 +5,9 @@ import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPos
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoDto;
 import com.ownproject.doemais.mappers.organizacao.OrganizacaoMapper;
-import com.ownproject.doemais.models.conta.enums.StatusConta;
-import com.ownproject.doemais.models.organizacao.Organizacao;
-import com.ownproject.doemais.models.organizacao.status.StatusOrganizacao;
+import com.ownproject.doemais.domain.conta.enums.StatusConta;
+import com.ownproject.doemais.domain.organizacao.Organizacao;
+import com.ownproject.doemais.domain.organizacao.status.StatusOrganizacao;
 import com.ownproject.doemais.repositories.organizacao.OrganizacaoRepository;
 import com.ownproject.doemais.services.usuario.UsuarioService;
 import com.ownproject.doemais.utils.data.DateUtil;

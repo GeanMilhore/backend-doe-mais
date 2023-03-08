@@ -1,7 +1,7 @@
 package com.ownproject.doemais.controllers.authentication;
 
 import com.ownproject.doemais.controllers.authentication.dto.DadosAutenticacao;
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.services.authentication.TokenService;
 import com.ownproject.doemais.utils.security.DadosTokenJWT;
 import jakarta.validation.Valid;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

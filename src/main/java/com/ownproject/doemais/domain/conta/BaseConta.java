@@ -1,6 +1,6 @@
-package com.ownproject.doemais.models.conta;
+package com.ownproject.doemais.domain.conta;
 
-import com.ownproject.doemais.models.conta.enums.StatusConta;
+import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;

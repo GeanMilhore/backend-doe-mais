@@ -1,8 +1,8 @@
-package com.ownproject.doemais.models.organizacao;
+package com.ownproject.doemais.domain.organizacao;
 
-import com.ownproject.doemais.models.conta.BaseConta;
-import com.ownproject.doemais.models.organizacao.status.StatusOrganizacao;
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.conta.BaseConta;
+import com.ownproject.doemais.domain.organizacao.status.StatusOrganizacao;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

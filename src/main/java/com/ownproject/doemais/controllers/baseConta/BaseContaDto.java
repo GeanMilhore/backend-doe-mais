@@ -1,4 +1,4 @@
-package com.ownproject.doemais.controllers.baseConta.dto;
+package com.ownproject.doemais.controllers.baseConta;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

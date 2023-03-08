@@ -3,7 +3,7 @@ package com.ownproject.doemais.mappers.usuario;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioDto;
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioPostDto;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto;
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

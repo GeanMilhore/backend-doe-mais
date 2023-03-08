@@ -1,4 +1,4 @@
-package com.ownproject.doemais.models.perfil;
+package com.ownproject.doemais.domain.perfil;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

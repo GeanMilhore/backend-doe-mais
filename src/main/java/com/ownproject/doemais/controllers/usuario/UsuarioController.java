@@ -23,7 +23,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioCreatedDto> cadastrarNovoUsuario(@PathVariable @Valid UsuarioPostDto usuario){
+    public ResponseEntity<UsuarioCreatedDto> cadastrarNovoUsuario(@RequestBody @Valid UsuarioPostDto usuario){
         UsuarioCreatedDto usuarioResponse = usuarioService.cadastrarNovoUsuario(usuario);
         return new ResponseEntity<>(usuarioResponse, HttpStatusCode.valueOf(HttpStatus.CREATED.value()));
     }

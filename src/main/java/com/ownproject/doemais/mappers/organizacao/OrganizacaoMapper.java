@@ -4,7 +4,7 @@ import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoEdi
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPostDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoDto;
-import com.ownproject.doemais.models.organizacao.Organizacao;
+import com.ownproject.doemais.domain.organizacao.Organizacao;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
