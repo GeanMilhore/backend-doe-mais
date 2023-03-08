@@ -1,16 +1,16 @@
 package com.ownproject.doemais.services.usuario;
 
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioEditDto;
-import com.ownproject.doemais.models.conta.enums.StatusConta;
-import com.ownproject.doemais.exception.handlers.DomainException;
+import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioDto;
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioPostDto;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto;
-import com.ownproject.doemais.models.usuario.enums.TipoUsuario;
+import com.ownproject.doemais.domain.usuario.enums.TipoUsuario;
 import com.ownproject.doemais.mappers.usuario.UserMapper;
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
 import com.ownproject.doemais.utils.data.DateUtil;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class UsuarioService {
 
     private TipoUsuario pegarTipoUsuarioEnum(UsuarioPostDto usuarioPostDto) {
         return TipoUsuario.pegarTipoUsuario(usuarioPostDto.getTipoUsuario())
-                .orElseThrow(() -> new DomainException("Tipo de usuário inexistente."));
+                .orElseThrow(() -> new EntityNotFoundException("Tipo de usuário inexistente."));
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class UsuarioService {
     }
 
     public Usuario encontrarUsuario(Long idUsuario) {
-        return usuarioRepository.findById(idUsuario).orElseThrow(() -> new DomainException("Usuário não encontrado"));
+        return usuarioRepository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
 
     public UsuarioDto detalharUsuario(Long idUsuario) {

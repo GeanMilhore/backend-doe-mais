@@ -1,6 +1,6 @@
 package com.ownproject.doemais.config.security;
 
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
 import com.ownproject.doemais.services.authentication.TokenService;
 import jakarta.servlet.FilterChain;
@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

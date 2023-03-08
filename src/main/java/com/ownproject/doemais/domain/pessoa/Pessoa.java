@@ -1,8 +1,8 @@
-package com.ownproject.doemais.models.pessoa;
+package com.ownproject.doemais.domain.pessoa;
 
 
-import com.ownproject.doemais.models.conta.BaseConta;
-import com.ownproject.doemais.models.usuario.Usuario;
+import com.ownproject.doemais.domain.conta.BaseConta;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

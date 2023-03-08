@@ -1,6 +1,6 @@
 package com.ownproject.doemais.controllers.pessoa.dto.response;
 
-import com.ownproject.doemais.controllers.baseConta.dto.BaseContaDto;
+import com.ownproject.doemais.controllers.baseConta.BaseContaDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

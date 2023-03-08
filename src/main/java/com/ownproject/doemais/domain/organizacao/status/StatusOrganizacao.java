@@ -1,4 +1,4 @@
-package com.ownproject.doemais.models.organizacao.status;
+package com.ownproject.doemais.domain.organizacao.status;
 
 public enum StatusOrganizacao {
     APROVADA,

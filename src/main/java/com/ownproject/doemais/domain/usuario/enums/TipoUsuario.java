@@ -1,4 +1,4 @@
-package com.ownproject.doemais.models.usuario.enums;
+package com.ownproject.doemais.domain.usuario.enums;
 
 import lombok.AllArgsConstructor;
 

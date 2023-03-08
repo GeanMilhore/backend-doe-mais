@@ -4,7 +4,7 @@ import com.ownproject.doemais.controllers.pessoa.dto.request.PessoaEditDto;
 import com.ownproject.doemais.controllers.pessoa.dto.request.PessoaPostDto;
 import com.ownproject.doemais.controllers.pessoa.dto.response.PessoaCreatedDto;
 import com.ownproject.doemais.controllers.pessoa.dto.response.PessoaDto;
-import com.ownproject.doemais.models.pessoa.Pessoa;
+import com.ownproject.doemais.domain.pessoa.Pessoa;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
