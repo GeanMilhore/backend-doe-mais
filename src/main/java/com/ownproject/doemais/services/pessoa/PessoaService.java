@@ -9,10 +9,10 @@ import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.domain.pessoa.Pessoa;
 import com.ownproject.doemais.repositories.pessoa.PessoaRepository;
 import com.ownproject.doemais.utils.data.DateUtil;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class PessoaService {
     
     public Pessoa encontrarPessoa(Long id) {
         return pessoaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Pessoa não encontrada com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada com ID: " + id));
     }
 
     public PessoaDto detalharPessoa(Long id) {

@@ -15,6 +15,4 @@ public class UsuarioDto extends BaseContaDto {
 
     private String email;
 
-    private String senha;
-
 }

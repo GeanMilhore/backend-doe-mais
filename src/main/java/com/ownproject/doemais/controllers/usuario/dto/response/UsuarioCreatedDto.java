@@ -1,11 +1,16 @@
 package com.ownproject.doemais.controllers.usuario.dto.response;
 
 import com.ownproject.doemais.domain.conta.enums.StatusConta;
+import com.ownproject.doemais.domain.perfil.Perfil;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -17,11 +22,9 @@ public class UsuarioCreatedDto {
 
     protected StatusConta status;
 
-    private String tipoUsuario;
+    private List<Perfil> perfis = new ArrayList<>();
 
     private String email;
-
-    private String senha;
 
     protected LocalDateTime dataCriacao;
 

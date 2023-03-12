@@ -9,6 +9,7 @@ import com.ownproject.doemais.domain.usuario.enums.TipoUsuario;
 import com.ownproject.doemais.mappers.usuario.UserMapper;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
+import com.ownproject.doemais.services.perfil.PerfilService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,9 @@ import java.util.List;
 @NoArgsConstructor
 @Service
 public class UsuarioService {
+
+    @Autowired
+    PerfilService perfilService;
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -34,13 +38,9 @@ public class UsuarioService {
         LocalDateTime hoje = DateUtil.dataDeHoje();
         novoUsuario.setDataCriacao(hoje);
         novoUsuario.setDataUltimaEdicao(hoje);
+        novoUsuario.adicionarPefil(perfilService.pesquisarPerfilPorId(usuarioPostDto.getIdPerfil()));
         Usuario usuarioSaved = usuarioRepository.save(novoUsuario);
         return userMapper.usuarioToResponseDto(usuarioSaved);
-    }
-
-    private TipoUsuario pegarTipoUsuarioEnum(UsuarioPostDto usuarioPostDto) {
-        return TipoUsuario.pegarTipoUsuario(usuarioPostDto.getTipoUsuario())
-                .orElseThrow(() -> new EntityNotFoundException("Tipo de usuário inexistente."));
     }
 
     @Transactional
@@ -60,6 +60,7 @@ public class UsuarioService {
     @Transactional
     public UsuarioDto editarUsuario(Long idUsuario, UsuarioEditDto usuarioEditDto) {
         Usuario usuarioOriginal = encontrarUsuario(idUsuario);
+        usuarioOriginal.setEmail(usuarioEditDto.getEmail());
         return userMapper.toUsuarioDto(usuarioRepository.save(usuarioOriginal));
     }
 
