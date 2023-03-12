@@ -2,10 +2,17 @@ package com.ownproject.doemais.domain.usuario;
 
 import com.ownproject.doemais.domain.conta.BaseConta;
 import com.ownproject.doemais.domain.perfil.Perfil;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,6 +31,7 @@ public class Usuario extends BaseConta implements UserDetails {
     private Long id;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<Perfil> perfis = new ArrayList<>();
 
     private String email;
@@ -63,5 +71,9 @@ public class Usuario extends BaseConta implements UserDetails {
     @Override
     public boolean isEnabled() {
         return !getStatus().equals("INATIVO");
+    }
+
+    public void adicionarPefil(Perfil perfil){
+        this.perfis.add(perfil);
     }
 }

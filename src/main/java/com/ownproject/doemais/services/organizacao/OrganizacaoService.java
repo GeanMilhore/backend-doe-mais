@@ -11,10 +11,10 @@ import com.ownproject.doemais.domain.organizacao.status.StatusOrganizacao;
 import com.ownproject.doemais.repositories.organizacao.OrganizacaoRepository;
 import com.ownproject.doemais.services.usuario.UsuarioService;
 import com.ownproject.doemais.utils.data.DateUtil;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class OrganizacaoService {
 
         public Organizacao encontrarOrganizacao(Long id) {
             return organizacaoRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundException("Organizacao não encontrada com ID: " + id));
+                    .orElseThrow(() -> new EntityNotFoundException("Organizacao não encontrada com ID: " + id));
         }
 
         public OrganizacaoDto detalharOrganizacao(Long id) {
