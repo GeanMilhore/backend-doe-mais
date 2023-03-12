@@ -1,14 +1,14 @@
 package com.ownproject.doemais.services.usuario;
 
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioEditDto;
-import com.ownproject.doemais.domain.conta.enums.StatusConta;
-import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioDto;
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioPostDto;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto;
-import com.ownproject.doemais.domain.usuario.enums.TipoUsuario;
-import com.ownproject.doemais.mappers.usuario.UserMapper;
+import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioDto;
+import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.domain.usuario.Usuario;
+import com.ownproject.doemais.mappers.usuario.UserMapper;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
+import com.ownproject.doemais.services.password.PasswordService;
 import com.ownproject.doemais.services.perfil.PerfilService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,7 +25,10 @@ import java.util.List;
 public class UsuarioService {
 
     @Autowired
+    PasswordService passwordService;
+    @Autowired
     PerfilService perfilService;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -38,6 +41,7 @@ public class UsuarioService {
         LocalDateTime hoje = DateUtil.dataDeHoje();
         novoUsuario.setDataCriacao(hoje);
         novoUsuario.setDataUltimaEdicao(hoje);
+        novoUsuario.setSenha(passwordService.encriptarSenhaUsuario(novoUsuario));
         novoUsuario.adicionarPefil(perfilService.pesquisarPerfilPorId(usuarioPostDto.getIdPerfil()));
         Usuario usuarioSaved = usuarioRepository.save(novoUsuario);
         return userMapper.usuarioToResponseDto(usuarioSaved);
@@ -51,6 +55,10 @@ public class UsuarioService {
 
     public Usuario encontrarUsuario(Long idUsuario) {
         return usuarioRepository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+    }
+
+    public Usuario encontrarUsuarioPeloEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
 
     public UsuarioDto detalharUsuario(Long idUsuario) {

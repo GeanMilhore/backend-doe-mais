@@ -1,6 +1,5 @@
 package com.ownproject.doemais.config.handlers;
 
-import com.fasterxml.jackson.databind.DatabindException;
 import com.ownproject.doemais.config.handlers.exceptions.ExceptionDetails;
 import com.ownproject.doemais.config.handlers.exceptions.validationExceptionError.FieldError;
 import com.ownproject.doemais.config.handlers.exceptions.validationExceptionError.ValidationExceptionDetails;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,15 @@ public class ExceptionHandlers {
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "Anotação / Configuração errada para o tipo de campo.");
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity exceptionHandlerValorUnicoDuplicado(SQLIntegrityConstraintViolationException exception){
+        ExceptionDetails exceptionDetails = criarExceptionDetails(
+                exception,
+                HttpStatus.BAD_REQUEST,
+                "Entidade já registrada no sistema");
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
     private static ExceptionDetails criarExceptionDetails(Exception exception, HttpStatus httpStatus, String devMessage) {
