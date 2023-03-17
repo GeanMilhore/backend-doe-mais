@@ -1,5 +1,6 @@
 package com.ownproject.doemais.controllers.organizacao;
 
+import com.ownproject.doemais.config.security.annotations.HasOrganizacaoPermission;
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoEditDto;
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPostDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
@@ -31,7 +32,6 @@ public class OrganizacaoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizacaoDto> detalharOrganizacao(@PathVariable Long id) {
-        // todo - jwt authentication authenticationService.hasPermission(principal, id);
         OrganizacaoDto organizacaoDTO = organizacaoService.detalharOrganizacao(id);
         return ResponseEntity.ok(organizacaoDTO);
     }
@@ -43,22 +43,23 @@ public class OrganizacaoController {
     }
 
     @PostMapping
+    @HasOrganizacaoPermission(value="vincular_organizacao")
     public ResponseEntity<OrganizacaoCreatedDto> criarNovaOrganizacao(@RequestBody @Valid OrganizacaoPostDto organizacaoDTO) {
         OrganizacaoCreatedDto createdorganizacaoDTO = organizacaoService.criarNovaOrganizacao(organizacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdorganizacaoDTO);
     }
 
     @PutMapping("/{id}")
+    @HasOrganizacaoPermission(value = "gerenciar_organizacao")
     public ResponseEntity<OrganizacaoDto> editarOrganizacao(@PathVariable Long id,
                                                   @RequestBody @Valid OrganizacaoEditDto organizacaoDTO) {
-//      todo - jwt authentication  authenticationService.hasPermission(principal, id);
         OrganizacaoDto updatedorganizacaoDTO = organizacaoService.editarOrganizacao(id, organizacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedorganizacaoDTO);
     }
 
     @DeleteMapping("/{id}")
+    @HasOrganizacaoPermission(value = "gerenciar_organizacao")
     public ResponseEntity<?> excluirOrganizacao(@PathVariable Long id) {
-//       todo - jwt authentication authenticationService.hasPermission(principal, id);
         organizacaoService.excluirOrganizacao(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -4,10 +4,12 @@ import com.ownproject.doemais.controllers.pessoa.dto.request.PessoaEditDto;
 import com.ownproject.doemais.controllers.pessoa.dto.request.PessoaPostDto;
 import com.ownproject.doemais.controllers.pessoa.dto.response.PessoaCreatedDto;
 import com.ownproject.doemais.controllers.pessoa.dto.response.PessoaDto;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.mappers.pessoa.PessoaMapper;
 import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.domain.pessoa.Pessoa;
 import com.ownproject.doemais.repositories.pessoa.PessoaRepository;
+import com.ownproject.doemais.services.authentication.TokenService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,9 @@ import java.util.List;
 
 @Service
 public class PessoaService {
+
+    @Autowired
+    private TokenService tokenService;
     @Autowired
     private PessoaRepository pessoaRepository;
     @Autowired
@@ -42,6 +47,7 @@ public class PessoaService {
     @Transactional
     public PessoaCreatedDto criarNovaPessoa(PessoaPostDto pessoaDTO) {
         Pessoa pessoa = pessoaMapper.pessoaPostDtoToEntity(pessoaDTO);
+        pessoa.setUsuario(tokenService.getUsuarioLogado());
         pessoa.setStatus(StatusConta.ATIVO);
         pessoa.setDataCriacao(DateUtil.dataDeHoje());
         pessoa = pessoaRepository.save(pessoa);
@@ -62,6 +68,12 @@ public class PessoaService {
     public void excluirPessoa(Long id) {
         Pessoa pessoa = encontrarPessoa(id);
         pessoaRepository.delete(pessoa);
+    }
+
+    public Pessoa recuperarPessoaPorUsuario(Usuario usuarioLogado) {
+        return pessoaRepository
+                .findPessoaByIdUsuario(usuarioLogado.getId()).orElseThrow(
+                        () -> new EntityNotFoundException("Não existem registro de pessoas vínculadas a esse usuário"));
     }
 }
 

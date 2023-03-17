@@ -42,7 +42,7 @@ public class UsuarioService {
         novoUsuario.setDataCriacao(hoje);
         novoUsuario.setDataUltimaEdicao(hoje);
         novoUsuario.setSenha(passwordService.encriptarSenhaUsuario(novoUsuario));
-        novoUsuario.adicionarPefil(perfilService.pesquisarPerfilPorId(usuarioPostDto.getIdPerfil()));
+        novoUsuario.setPerfil(perfilService.pesquisarPerfilPorId(usuarioPostDto.getIdPerfil()));
         Usuario usuarioSaved = usuarioRepository.save(novoUsuario);
         return userMapper.usuarioToResponseDto(usuarioSaved);
     }

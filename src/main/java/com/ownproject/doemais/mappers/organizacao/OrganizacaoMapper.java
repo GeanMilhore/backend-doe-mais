@@ -38,6 +38,6 @@ public class OrganizacaoMapper {
 
     public void atualizarOrganizacaoPeloDto(OrganizacaoEditDto organizacaoDto, Organizacao Organizacao) {
         Organizacao.setNome(organizacaoDto.getNome());
-        Organizacao.setIdadeInstituicao(organizacaoDto.getIdadeInstituicao());
+        Organizacao.setDataFundacao(organizacaoDto.getDataFundacao());
     }
 }

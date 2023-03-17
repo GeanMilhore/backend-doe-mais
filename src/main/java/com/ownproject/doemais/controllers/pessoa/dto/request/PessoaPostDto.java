@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
 
@@ -11,11 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 public class PessoaPostDto {
 
-    @NotNull
-    private Long idUsuario;
     @NotBlank
     protected String nome;
     @NotBlank
+    @CPF
     private String cpf;
     @NotNull
     private Date dataNascimento;

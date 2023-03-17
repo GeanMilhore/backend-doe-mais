@@ -37,6 +37,15 @@ public class ExceptionHandlers {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({IllegalAccessException.class})
+    public ResponseEntity exceptionHandlerIllegalAccessException(Exception exception){
+        ExceptionDetails exceptionDetails = criarExceptionDetails(
+                exception,
+                HttpStatus.FORBIDDEN,
+                "Usuários sem autorização necessária.");
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity exceptionHandlerValorUnicoDuplicado(SQLIntegrityConstraintViolationException exception){
         ExceptionDetails exceptionDetails = criarExceptionDetails(

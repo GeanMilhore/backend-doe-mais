@@ -26,8 +26,9 @@ public class PasswordService {
 
     public String adicionarSaltSenha(Usuario usuario, String senha){
         String firstSalt = usuario.getDataCriacao().getDayOfWeek().toString();
-        String lastSalt = usuario.getEmail().toString();
-        return firstSalt + senha + lastSalt;
+        String lastSalt = usuario.getDataCriacao().getMonth().toString();
+        String senhaComSalt = (firstSalt + senha + lastSalt);
+        return senhaComSalt;
     }
 
     public String recuperarUsuarioSenhaSaltPeloEmail(String email, String senha){

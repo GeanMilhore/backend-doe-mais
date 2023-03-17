@@ -4,11 +4,13 @@ import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoEdi
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPostDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoDto;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.mappers.organizacao.OrganizacaoMapper;
 import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.domain.organizacao.Organizacao;
 import com.ownproject.doemais.domain.organizacao.status.StatusOrganizacao;
 import com.ownproject.doemais.repositories.organizacao.OrganizacaoRepository;
+import com.ownproject.doemais.services.authentication.TokenService;
 import com.ownproject.doemais.services.usuario.UsuarioService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrganizacaoService {
@@ -24,7 +27,7 @@ public class OrganizacaoService {
         @Autowired
         private OrganizacaoRepository organizacaoRepository;
         @Autowired
-        private UsuarioService usuarioService;
+        private TokenService tokenService;
         @Autowired
             private OrganizacaoMapper organizacaoMapper;
 
@@ -43,11 +46,16 @@ public class OrganizacaoService {
             return organizacaoMapper.allToOrganizacaoDto(Organizacaos);
         }
 
+        public Organizacao pesquisarOrganizacaoPorIdUsuario(Usuario usuario){
+            return organizacaoRepository.findOrganizacaoByUsuarioId(usuario.getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Usuário não possui organização vínculada. "));
+        }
+
 
         @Transactional
         public OrganizacaoCreatedDto criarNovaOrganizacao(OrganizacaoPostDto organizacaoDTO) {
-            usuarioService.encontrarUsuario(organizacaoDTO.getIdUsuario());
             Organizacao organizacao = organizacaoMapper.OrganizacaoPostDtoToEntity(organizacaoDTO);
+            organizacao.setUsuario(tokenService.getUsuarioLogado());
             organizacao.setStatus(StatusConta.ATIVO);
             organizacao.setStatusOrganizacao(StatusOrganizacao.EM_ANALISE);
             organizacao.setDataCriacao(DateUtil.dataDeHoje());

@@ -4,6 +4,8 @@ import com.ownproject.doemais.controllers.baseConta.BaseContaDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class OrganizacaoDto extends BaseContaDto {
@@ -13,6 +15,6 @@ public class OrganizacaoDto extends BaseContaDto {
     private String nome;
     private String cnpj;
     private String razaoSocial;
-    private Long idadeInstituicao;
+    private Date dataFundacao;
 
 }
