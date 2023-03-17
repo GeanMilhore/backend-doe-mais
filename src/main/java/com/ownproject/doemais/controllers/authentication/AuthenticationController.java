@@ -3,6 +3,7 @@ package com.ownproject.doemais.controllers.authentication;
 import com.ownproject.doemais.controllers.authentication.dto.DadosAutenticacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.services.authentication.TokenService;
+import com.ownproject.doemais.services.password.PasswordService;
 import com.ownproject.doemais.utils.security.DadosTokenJWT;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
+    PasswordService passwordService;
+
+    @Autowired
     private AuthenticationManager manager;
 
     @Autowired
@@ -26,7 +30,10 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados){
-        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authenticationToken = new UsernamePasswordAuthenticationToken(
+                dados.login(),
+                passwordService.recuperarUsuarioSenhaSaltPeloEmail(dados.login(), dados.senha())
+        );
         var authentication = manager.authenticate(authenticationToken);
 
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());

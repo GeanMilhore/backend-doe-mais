@@ -1,5 +1,6 @@
 package com.ownproject.doemais.controllers.usuario;
 
+import com.ownproject.doemais.config.security.annotations.HasUsuarioPermission;
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioEditDto;
 import com.ownproject.doemais.controllers.usuario.dto.request.UsuarioPostDto;
 import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto;
@@ -29,6 +30,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @HasUsuarioPermission(value="gerenciar_usuario")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<UsuarioDto> editarUsuario(@PathVariable("id") Long idUsuario,
                                                     @RequestBody @Valid UsuarioEditDto usuario){
@@ -37,6 +39,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @HasUsuarioPermission(value="visualizar_usuarios")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<UsuarioDto> detalharUsuario(@PathVariable("id") Long idUsuario){
         UsuarioDto detalhesUsuario = usuarioService.detalharUsuario(idUsuario);
@@ -44,6 +47,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @HasUsuarioPermission(value="visualizar_usuarios")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<List<UsuarioDto>> detalharTodosUsuario(){
         List<UsuarioDto> detalhesUsuarios = usuarioService.detalharTodosUsuario();
@@ -51,6 +55,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @HasUsuarioPermission(value="gerenciar_usuario")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<?> excluirUsuario(@RequestParam("id") Long idUsuario){
         usuarioService.excluirUsuario(idUsuario);
