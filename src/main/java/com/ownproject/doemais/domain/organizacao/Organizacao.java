@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -35,5 +36,5 @@ public class Organizacao extends BaseConta {
 
     private String nomeResponsavel;
 
-    private Date dataFundacao;
+    private LocalDateTime dataFundacao;
 }

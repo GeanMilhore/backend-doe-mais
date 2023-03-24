@@ -20,6 +20,11 @@ public class UserMapper {
                 .addMapping(Usuario::getId, UsuarioCreatedDto::setId)
                 .addMapping(Usuario::getEmail, UsuarioCreatedDto::setEmail)
                 .addMapping(Usuario::getDataCriacao, UsuarioCreatedDto::setDataCriacao);
+
+        modelMapper.createTypeMap(Usuario.class, UsuarioDto.class)
+                .addMapping(Usuario::getId, UsuarioDto::setId)
+                .addMapping(usuario -> usuario.getPerfil().getNome(), UsuarioDto::setTipoUsuario)
+                .addMapping(Usuario::getEmail, UsuarioDto::setEmail);
     }
 
     public UsuarioCreatedDto usuarioToResponseDto(Usuario Usuario) {

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -18,6 +19,6 @@ public class PessoaPostDto {
     @CPF
     private String cpf;
     @NotNull
-    private Date dataNascimento;
+    private LocalDateTime dataNascimento;
 
 }
