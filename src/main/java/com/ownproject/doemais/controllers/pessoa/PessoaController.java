@@ -53,7 +53,7 @@ public class PessoaController {
     @HasPessoaPermission(value="gerenciar_pessoa")
     public ResponseEntity<PessoaDto> editarPessoa(@PathVariable Long id,@RequestBody @Valid PessoaEditDto pessoaDTO) {
         PessoaDto updatedPessoaDTO = pessoaService.editarPessoa(id, pessoaDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(updatedPessoaDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPessoaDTO);
     }
 
 

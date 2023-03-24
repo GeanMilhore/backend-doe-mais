@@ -54,7 +54,7 @@ public class OrganizacaoController {
     public ResponseEntity<OrganizacaoDto> editarOrganizacao(@PathVariable Long id,
                                                   @RequestBody @Valid OrganizacaoEditDto organizacaoDTO) {
         OrganizacaoDto updatedorganizacaoDTO = organizacaoService.editarOrganizacao(id, organizacaoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(updatedorganizacaoDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedorganizacaoDTO);
     }
 
     @DeleteMapping("/{id}")

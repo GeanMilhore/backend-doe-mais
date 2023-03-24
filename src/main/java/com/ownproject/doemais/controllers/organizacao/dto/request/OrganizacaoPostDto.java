@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -21,5 +22,5 @@ public class OrganizacaoPostDto {
     @NotBlank
     private String razaoSocial;
     @NotNull
-    private Date dataFundacao;
+    private LocalDateTime dataFundacao;
 }

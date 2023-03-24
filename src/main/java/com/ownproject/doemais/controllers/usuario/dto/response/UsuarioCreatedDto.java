@@ -1,5 +1,6 @@
 package com.ownproject.doemais.controllers.usuario.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ownproject.doemais.domain.conta.enums.StatusConta;
 import com.ownproject.doemais.domain.perfil.Perfil;
 import jakarta.persistence.EnumType;
@@ -26,7 +27,7 @@ public class UsuarioCreatedDto {
 
     private String email;
 
-    protected LocalDateTime dataCriacao;
+    protected String dataCriacao;
 
-    protected LocalDateTime dataUltimaEdicao;
+    protected String dataUltimaEdicao;
 }

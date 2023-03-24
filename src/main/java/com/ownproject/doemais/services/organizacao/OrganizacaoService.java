@@ -29,7 +29,7 @@ public class OrganizacaoService {
         @Autowired
         private TokenService tokenService;
         @Autowired
-            private OrganizacaoMapper organizacaoMapper;
+        private OrganizacaoMapper organizacaoMapper;
 
 
         public Organizacao encontrarOrganizacao(Long id) {

@@ -4,7 +4,9 @@ import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoEdi
 import com.ownproject.doemais.controllers.organizacao.dto.request.OrganizacaoPostDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoCreatedDto;
 import com.ownproject.doemais.controllers.organizacao.dto.response.OrganizacaoDto;
+import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto;
 import com.ownproject.doemais.domain.organizacao.Organizacao;
+import com.ownproject.doemais.domain.usuario.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,14 @@ public class OrganizacaoMapper {
 
     public OrganizacaoMapper() {
         modelMapper = new ModelMapper();
+        modelMapper.createTypeMap(Organizacao.class, OrganizacaoCreatedDto.class)
+                .addMapping(Organizacao::getDataFundacao, OrganizacaoCreatedDto::setDataFundacao);
+
+        modelMapper.createTypeMap(Organizacao.class, OrganizacaoDto.class)
+                .addMapping(Organizacao::getDataFundacao, OrganizacaoDto::setDataFundacao)
+                .addMapping(Organizacao::getDataCriacao, OrganizacaoDto::setDataCriacao)
+                .addMapping(Organizacao::getDataExclusao, OrganizacaoDto::setDataExclusao)
+                .addMapping(Organizacao::getDataUltimaEdicao, OrganizacaoDto::setDataUltimaEdicao);
     }
 
     public OrganizacaoCreatedDto OrganizacaoToCreatedDto(Organizacao organizacao) {
