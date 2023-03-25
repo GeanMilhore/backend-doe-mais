@@ -15,6 +15,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -61,7 +63,7 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
 
-    public UsuarioDto detalharUsuario(Long idUsuario) {
+    public UsuarioDto pesquisarUsuario(Long idUsuario) {
         return userMapper.toUsuarioDto(encontrarUsuario(idUsuario));
     }
 
@@ -72,8 +74,7 @@ public class UsuarioService {
         return userMapper.toUsuarioDto(usuarioRepository.save(usuarioOriginal));
     }
 
-    public List<UsuarioDto> detalharTodosUsuario() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        return userMapper.allToUsuarioDto(usuarios);
+    public Page<UsuarioDto> pesquisarTodosUsuario(Pageable pageable) {
+        return usuarioRepository.findAll(pageable).map(userMapper::toUsuarioDto);
     }
 }

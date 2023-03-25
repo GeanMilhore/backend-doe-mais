@@ -16,6 +16,8 @@ import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,13 +39,13 @@ public class OrganizacaoService {
                     .orElseThrow(() -> new EntityNotFoundException("Organizacao não encontrada com ID: " + id));
         }
 
-        public OrganizacaoDto detalharOrganizacao(Long id) {
+        public OrganizacaoDto pesquisarOrganizacao(Long id) {
             return organizacaoMapper.toOrganizacaoDto(encontrarOrganizacao(id));
         }
 
-        public List<OrganizacaoDto> detalharTodasOrganizacoes() {
-            List<Organizacao> Organizacaos = organizacaoRepository.findAll();
-            return organizacaoMapper.allToOrganizacaoDto(Organizacaos);
+        public Page<OrganizacaoDto> pesquisarTodasOrganizacoes(Pageable pageable) {
+            return organizacaoRepository.findAll(pageable)
+                    .map(organizacao -> organizacaoMapper.toOrganizacaoDto(organizacao));
         }
 
         public Organizacao pesquisarOrganizacaoPorIdUsuario(Usuario usuario){

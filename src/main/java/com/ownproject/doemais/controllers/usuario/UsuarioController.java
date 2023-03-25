@@ -9,6 +9,8 @@ import com.ownproject.doemais.services.usuario.UsuarioService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -39,18 +41,18 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    @HasUsuarioPermission(value="visualizar_usuarios")
+    @HasUsuarioPermission(value="gerenciar_usuario")
     @SecurityRequirement(name = "bearer-key")
-    public ResponseEntity<UsuarioDto> detalharUsuario(@PathVariable("id") Long idUsuario){
-        UsuarioDto detalhesUsuario = usuarioService.detalharUsuario(idUsuario);
+    public ResponseEntity<UsuarioDto> pesquisarUsuario(@PathVariable("id") Long idUsuario){
+        UsuarioDto detalhesUsuario = usuarioService.pesquisarUsuario(idUsuario);
         return new ResponseEntity<>(detalhesUsuario, HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
     @GetMapping
     @HasUsuarioPermission(value="visualizar_usuarios")
     @SecurityRequirement(name = "bearer-key")
-    public ResponseEntity<List<UsuarioDto>> detalharTodosUsuario(){
-        List<UsuarioDto> detalhesUsuarios = usuarioService.detalharTodosUsuario();
+    public ResponseEntity<Page<UsuarioDto>> pesquisarTodosUsuario(Pageable pageable){
+        Page<UsuarioDto> detalhesUsuarios = usuarioService.pesquisarTodosUsuario(pageable);
         return new ResponseEntity<>(detalhesUsuarios, HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 

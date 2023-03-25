@@ -14,6 +14,8 @@ import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,13 +36,12 @@ public class PessoaService {
                 .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada com ID: " + id));
     }
 
-    public PessoaDto detalharPessoa(Long id) {
+    public PessoaDto pesquisarPessoa(Long id) {
         return pessoaMapper.toPessoaDto(encontrarPessoa(id));
     }
 
-    public List<PessoaDto> detalharTodasPessoas() {
-        List<Pessoa> pessoas = pessoaRepository.findAll();
-        return pessoaMapper.allToPessoaDto(pessoas);
+    public Page<PessoaDto> pesquisarTodasPessoas(Pageable pageable) {
+        return pessoaRepository.findAll(pageable).map(pessoa -> pessoaMapper.toPessoaDto(pessoa));
     }
 
 
