@@ -57,7 +57,7 @@ public class ExceptionHandlers {
 
     private static ExceptionDetails criarExceptionDetails(Exception exception, HttpStatus httpStatus, String devMessage) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
-                .timeStamp(LocalDateTime.now())
+                .timeStamp(LocalDateTime.now().toString())
                 .title(exception.getMessage())
                 .details(exception.toString())
                 .status(httpStatus.value())
@@ -76,7 +76,7 @@ public class ExceptionHandlers {
                         .developerMessage("Faça a correção dos campos e reenvie a requisição.")
                         .details(exception.getBody().getDetail())
                         .title(exception.getBody().getTitle())
-                        .timeStamp(LocalDateTime.now())
+                        .timeStamp(LocalDateTime.now().toString())
                         .build()
                 , HttpStatus.BAD_REQUEST
         );

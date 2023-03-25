@@ -9,6 +9,8 @@ import com.ownproject.doemais.services.pessoa.PessoaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,15 +33,14 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<PessoaDto> detalharPessoa(@PathVariable Long id) {
-        PessoaDto pessoaDTO = pessoaService.detalharPessoa(id);
+    public ResponseEntity<PessoaDto> pesquisarPessoa(@PathVariable Long id) {
+        PessoaDto pessoaDTO = pessoaService.pesquisarPessoa(id);
         return ResponseEntity.ok(pessoaDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<PessoaDto>> detalharTodasPessoas() {
-        List<PessoaDto> pessoaDTOList = pessoaService.detalharTodasPessoas();
-        return ResponseEntity.ok(pessoaDTOList);
+    public ResponseEntity<Page<PessoaDto>> pesquisarTodasPessoas(Pageable pageable) {
+        return ResponseEntity.ok(pessoaService.pesquisarTodasPessoas(pageable));
     }
 
     @PostMapping

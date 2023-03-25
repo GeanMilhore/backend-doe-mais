@@ -8,6 +8,7 @@ import com.ownproject.doemais.controllers.usuario.dto.response.UsuarioCreatedDto
 import com.ownproject.doemais.domain.organizacao.Organizacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class OrganizacaoMapper {
         return modelMapper.map(organizacaoEncontrada, OrganizacaoDto.class);
     }
 
-    public List<OrganizacaoDto> allToOrganizacaoDto(List<Organizacao> organizacoes) {
+    public List<OrganizacaoDto> allToOrganizacaoDto(Page<Organizacao> organizacoes) {
         return organizacoes.stream().map(organizacao -> toOrganizacaoDto(organizacao)).collect(Collectors.toList());
     }
 
