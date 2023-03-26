@@ -1,4 +1,4 @@
-package com.ownproject.doemais.config.security.interceptors;
+package com.ownproject.doemais.config.security.interceptors.general;
 
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.servlet.http.HttpServletRequest;

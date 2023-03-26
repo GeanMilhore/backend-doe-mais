@@ -1,7 +1,7 @@
 package com.ownproject.doemais.config.security.interceptors.campanha.handlers;
 
 import com.ownproject.doemais.config.security.interceptors.InterceptorUtils;
-import com.ownproject.doemais.config.security.interceptors.IntermediadorPermissao;
+import com.ownproject.doemais.config.security.interceptors.general.IntermediadorPermissao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.services.authentication.TokenService;
 import com.ownproject.doemais.services.campanha.CampanhaService;

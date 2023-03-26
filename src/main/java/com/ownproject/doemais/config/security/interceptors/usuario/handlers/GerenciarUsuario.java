@@ -1,7 +1,7 @@
 package com.ownproject.doemais.config.security.interceptors.usuario.handlers;
 
 import com.ownproject.doemais.config.security.interceptors.InterceptorUtils;
-import com.ownproject.doemais.config.security.interceptors.IntermediadorPermissao;
+import com.ownproject.doemais.config.security.interceptors.general.IntermediadorPermissao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
