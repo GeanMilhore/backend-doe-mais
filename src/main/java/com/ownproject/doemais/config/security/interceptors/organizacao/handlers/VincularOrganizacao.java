@@ -1,6 +1,6 @@
 package com.ownproject.doemais.config.security.interceptors.organizacao.handlers;
 
-import com.ownproject.doemais.config.security.interceptors.IntermediadorPermissao;
+import com.ownproject.doemais.config.security.interceptors.general.IntermediadorPermissao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import com.ownproject.doemais.repositories.organizacao.OrganizacaoRepository;
 import jakarta.servlet.http.HttpServletRequest;

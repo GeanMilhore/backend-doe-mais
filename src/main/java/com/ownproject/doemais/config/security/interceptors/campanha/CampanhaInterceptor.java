@@ -1,7 +1,7 @@
 package com.ownproject.doemais.config.security.interceptors.campanha;
 
 import com.ownproject.doemais.config.security.annotations.HasCampanhaPermission;
-import com.ownproject.doemais.config.security.interceptors.Interceptador;
+import com.ownproject.doemais.config.security.interceptors.general.Interceptador;
 import com.ownproject.doemais.config.security.interceptors.campanha.handlers.GerenciarCampanha;
 import org.springframework.stereotype.Component;
 
