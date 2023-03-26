@@ -20,7 +20,7 @@ public class GerenciarPessoa extends IntermediadorPermissao {
         if(permissao.equals("gerenciar_pessoa")){
             verificarPerfilUsuario(usuarioLogado);
             Pessoa pessoaVinculada = pessoaService.recuperarPessoaPorUsuario(usuarioLogado);
-            Long idPessoaRequisicao = InterceptorUtils.recuperarIdByUrl(requisicao.getRequestURI());
+            Long idPessoaRequisicao = InterceptorUtils.recuperarIdByUrl(requisicao);
             if(idPessoaRequisicao == pessoaVinculada.getId()) return true;
             throw new IllegalAccessException("Pessoa logada não é dona da entidade a ser alterada.");
         }
