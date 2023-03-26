@@ -12,7 +12,7 @@ public class GerenciarUsuario extends IntermediadorPermissao {
     public boolean verificarPermissao(Usuario usuarioLogado, HttpServletRequest requisicao, String permissao) throws IllegalAccessException {
         if(permissao.equals("gerenciar_usuario")){
             if(usuarioLogado.getPerfil().getNome().equals("ROLE_ADMIN")) return true;
-            Long idUsuario = InterceptorUtils.recuperarIdByUrl(requisicao.getRequestURI());
+            Long idUsuario = InterceptorUtils.recuperarIdByUrl(requisicao);
             if(idUsuario == usuarioLogado.getId()) return true;
             throw new IllegalAccessException("Usuário logado não é dono da entidade a ser alterada.");
         }

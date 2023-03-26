@@ -10,6 +10,7 @@ public abstract class IntermediadorPermissao {
     public static IntermediadorPermissao link(IntermediadorPermissao primeiro , IntermediadorPermissao... cadeia){
         IntermediadorPermissao topo = primeiro;
         for( IntermediadorPermissao proximoNaCadeia : cadeia){
+            if(proximoNaCadeia == primeiro) continue;
             topo.proximo = proximoNaCadeia;
             topo = proximoNaCadeia;
         }

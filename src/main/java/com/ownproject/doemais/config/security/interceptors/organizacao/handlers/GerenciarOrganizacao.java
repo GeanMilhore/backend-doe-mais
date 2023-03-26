@@ -20,7 +20,7 @@ public class GerenciarOrganizacao extends IntermediadorPermissao {
         if(permissao.equals("gerenciar_organizacao")){
             verificarPerfilUsuario(usuarioLogado);
             Organizacao organizacaoVinculada = organizacaoService.pesquisarOrganizacaoPorIdUsuario(usuarioLogado);
-            Long idOrganizacao = InterceptorUtils.recuperarIdByUrl(requisicao.getRequestURI());
+            Long idOrganizacao = InterceptorUtils.recuperarIdByUrl(requisicao);
             if(organizacaoVinculada.getId() == idOrganizacao) return true;
             throw new IllegalAccessException("Organização logada não é dona da entidade a ser alterada.");
         }

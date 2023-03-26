@@ -6,10 +6,15 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ownproject.doemais.domain.organizacao.Organizacao;
+import com.ownproject.doemais.domain.pessoa.Pessoa;
 import com.ownproject.doemais.domain.usuario.Usuario;
+import com.ownproject.doemais.repositories.organizacao.OrganizacaoRepository;
+import com.ownproject.doemais.repositories.pessoa.PessoaRepository;
 import com.ownproject.doemais.repositories.usuario.UsuarioRepository;
 import com.ownproject.doemais.services.usuario.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +29,12 @@ public class TokenService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private OrganizacaoRepository organizacaoRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     @Value("${api.security.token.secret}")
     private String secretKey;
@@ -67,6 +78,20 @@ public class TokenService {
         String emailUsuario = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         return usuarioRepository.findByEmail(emailUsuario)
                 .orElseThrow(() -> new EntityNotFoundException("Erro na recuperação do usuário logado pelo email."));
+    }
+
+    public Organizacao getOrganizacaoLogada(){
+        Usuario logado = getUsuarioLogado();
+        return organizacaoRepository.findOrganizacaoByUsuarioId(logado.getId())
+                .orElseThrow(() -> new EntityNotFoundException
+                        ("Usuário não possui organização vínculada ou não é do tipo organização"));
+    }
+
+    public Pessoa getPessoaLogada(){
+        Usuario logado = getUsuarioLogado();
+        return pessoaRepository.findPessoaByIdUsuario(logado.getId())
+                .orElseThrow(() -> new EntityNotFoundException
+                        ("Usuário não possui pessoa vínculada ou não é do tipo pessoa"));
     }
 
     private Instant dataExpiracao() {

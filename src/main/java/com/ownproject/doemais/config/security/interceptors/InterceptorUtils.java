@@ -2,6 +2,7 @@ package com.ownproject.doemais.config.security.interceptors;
 
 import com.ownproject.doemais.domain.autorizacao.Autorizacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +21,8 @@ public class InterceptorUtils {
         if(!possuiPermissao) throw new IllegalAccessException("Usuário não possui permissão para executar método");
     }
 
-    public static Long recuperarIdByUrl(String url){
-        List<String> splitedUrl = Arrays.asList(url.split("/"));
+    public static Long recuperarIdByUrl(HttpServletRequest requisicao){
+        List<String> splitedUrl = Arrays.asList(requisicao.getRequestURI().split("/"));
         return Long.valueOf(splitedUrl.get(splitedUrl.size() - 1));
     }
 }
