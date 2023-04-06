@@ -1,6 +1,7 @@
 package com.ownproject.doemais.domain.usuario;
 
 import com.ownproject.doemais.domain.conta.BaseConta;
+import com.ownproject.doemais.domain.endereco.Endereco;
 import com.ownproject.doemais.domain.perfil.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,6 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,10 +33,13 @@ public class Usuario extends BaseConta implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perfil_usuario")
     @Cascade(CascadeType.ALL)
     private Perfil perfil;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<Endereco> enderecos;
 
     private String email;
 

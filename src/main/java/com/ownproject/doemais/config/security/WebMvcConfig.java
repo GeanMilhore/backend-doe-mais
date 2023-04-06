@@ -1,6 +1,8 @@
 package com.ownproject.doemais.config.security;
 
 import com.ownproject.doemais.config.security.interceptors.campanha.CampanhaInterceptor;
+import com.ownproject.doemais.config.security.interceptors.doacao.DoacaoInterceptor;
+import com.ownproject.doemais.config.security.interceptors.endereco.EnderecoInterceptor;
 import com.ownproject.doemais.config.security.interceptors.organizacao.OrganizacaoInterceptor;
 import com.ownproject.doemais.config.security.interceptors.pessoa.PessoaInterceptor;
 import com.ownproject.doemais.config.security.interceptors.usuario.UsuarioInterceptor;
@@ -25,6 +27,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private OrganizacaoInterceptor organizacaoInterceptor;
     @Autowired
     private CampanhaInterceptor campanhaInterceptor;
+    @Autowired
+    private DoacaoInterceptor doacaoInterceptor;
+    @Autowired
+    private EnderecoInterceptor enderecoInterceptor;
 
 
 
@@ -35,7 +41,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addInterceptador(usuarioInterceptor)
                 .addInterceptador(pessoaInterceptor)
                 .addInterceptador(organizacaoInterceptor)
-                .addInterceptador(campanhaInterceptor);
+                .addInterceptador(campanhaInterceptor)
+                .addInterceptador(doacaoInterceptor)
+                .addInterceptador(enderecoInterceptor);
     }
 }
 
