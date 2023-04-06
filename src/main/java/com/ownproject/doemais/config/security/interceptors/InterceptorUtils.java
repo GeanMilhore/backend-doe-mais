@@ -3,6 +3,7 @@ package com.ownproject.doemais.config.security.interceptors;
 import com.ownproject.doemais.domain.autorizacao.Autorizacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Arrays;
 import java.util.List;

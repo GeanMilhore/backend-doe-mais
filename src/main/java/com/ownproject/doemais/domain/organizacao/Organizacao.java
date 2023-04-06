@@ -2,6 +2,7 @@ package com.ownproject.doemais.domain.organizacao;
 
 import com.ownproject.doemais.domain.campanha.Campanha;
 import com.ownproject.doemais.domain.conta.BaseConta;
+import com.ownproject.doemais.domain.doacao.Doacao;
 import com.ownproject.doemais.domain.organizacao.status.StatusOrganizacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.persistence.*;

@@ -41,6 +41,7 @@ public class CampanhaController {
     }
 
     @PostMapping
+    @HasCampanhaPermission(value = "cadastrar_campanha")
     public ResponseEntity<CampanhaDto> cadastrarCampanha(@RequestBody CampanhaRequestDto campanhaRequestDto){
         return new ResponseEntity<>(campanhaService
                 .cadastrarNovaCampanha(campanhaRequestDto), HttpStatusCode.valueOf(HttpStatus.CREATED.value()));
@@ -54,7 +55,7 @@ public class CampanhaController {
 
     @DeleteMapping("/{id}")
     @HasCampanhaPermission(value = "gerenciar_campanha")
-    public ResponseEntity<Void> editarCampanha(@PathVariable("id") Long idCampanha){
+    public ResponseEntity<Void> excluirCampanha(@PathVariable("id") Long idCampanha){
         campanhaService.excluirCampanha(idCampanha);
         return new ResponseEntity<>(HttpStatusCode.valueOf(HttpStatus.NO_CONTENT.value()));
     }

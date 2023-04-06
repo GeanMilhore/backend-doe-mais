@@ -2,6 +2,7 @@ package com.ownproject.doemais.domain.perfil;
 
 import com.ownproject.doemais.domain.autorizacao.Autorizacao;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,8 +12,6 @@ import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -26,9 +25,8 @@ public class Perfil {
 
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "perfil_autorizacao",
             joinColumns = @JoinColumn(name = "perfil_id"),

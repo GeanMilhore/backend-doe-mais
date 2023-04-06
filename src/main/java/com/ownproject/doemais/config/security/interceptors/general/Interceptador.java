@@ -12,6 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
@@ -21,11 +22,14 @@ public abstract class Interceptador implements HandlerInterceptor {
     private UsuarioService usuarioService;
 
     protected Interceptador(IntermediadorPermissao... intermediadores){
-        IntermediadorPermissao primeiro = Stream.of(intermediadores).findFirst().get();
-        intermediadorPermissao = IntermediadorPermissao.link(
-                primeiro,
-                intermediadores
-        );
+        Optional<IntermediadorPermissao> optFirst = Stream.of(intermediadores).findFirst();
+        if(optFirst.isPresent()){
+            IntermediadorPermissao primeiro = optFirst.get();
+            intermediadorPermissao = IntermediadorPermissao.link(
+                    primeiro,
+                    intermediadores
+            );
+        }
     }
 
     private IntermediadorPermissao intermediadorPermissao;
@@ -43,7 +47,8 @@ public abstract class Interceptador implements HandlerInterceptor {
                 String requiredPermission = getRequiredPermission();
                 Usuario logado =  usuarioService.encontrarUsuarioPeloEmail(request.getUserPrincipal().getName());
                 InterceptorUtils.verificarPermissaoExecucao(requiredPermission, logado);
-                return intermediadorPermissao.verificarPermissao(logado, request, requiredPermission);
+                if(intermediadorPermissao != null)
+                    return intermediadorPermissao.verificarPermissao(logado, request, requiredPermission);
             }
         }
         return true;

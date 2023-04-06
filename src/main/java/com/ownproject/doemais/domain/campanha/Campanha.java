@@ -1,17 +1,18 @@
 package com.ownproject.doemais.domain.campanha;
 
 import com.ownproject.doemais.controllers.baseRegistro.BaseRegistro;
+import com.ownproject.doemais.domain.doacao.Doacao;
 import com.ownproject.doemais.domain.organizacao.Organizacao;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
 
 @Entity(name = "campanha")
 @Data
@@ -24,6 +25,9 @@ public class Campanha extends BaseRegistro {
     @ManyToOne
     @JoinColumn(name = "id_organizacao")
     private Organizacao organizacao;
+
+    @OneToMany(mappedBy = "campanha")
+    private List<Doacao> doacoes;
 
     private String nome;
 
