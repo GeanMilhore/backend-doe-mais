@@ -37,6 +37,15 @@ public class ExceptionHandlers {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity exceptionHandlerIllegalArgumentException(Exception exception){
+        ExceptionDetails exceptionDetails = criarExceptionDetails(
+                exception,
+                HttpStatus.BAD_REQUEST,
+                "Argumento incorreto ou ilegal.");
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({IllegalAccessException.class})
     public ResponseEntity exceptionHandlerIllegalAccessException(Exception exception){
         ExceptionDetails exceptionDetails = criarExceptionDetails(

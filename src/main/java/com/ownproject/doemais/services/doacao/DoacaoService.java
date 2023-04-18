@@ -22,6 +22,8 @@ import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -55,9 +57,25 @@ public class DoacaoService {
     }
 
     @Transactional
-    public void confirmarDoacao(Long idDoacao) {
+    public void aceitarDoacao(Long idDoacao) {
         Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
-        doacaoEncontrada.setStatusDoacao(StatusDoacao.CONFIRMADA);
+        doacaoEncontrada.setStatusDoacao(StatusDoacao.ACEITA);
+        // TODO - informar ao usuário por email que a doação foi aceita e os próximos passos
+        doacaoRepository.save(doacaoEncontrada);
+    }
+
+    @Transactional
+    public void confirmarEntregaDoacao(Long idDoacao) {
+        Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
+        doacaoEncontrada.setStatusDoacao(StatusDoacao.ENTREGUE);
+        // TODO - informar ao usuário por email que a doação chegou a Ong
+        doacaoRepository.save(doacaoEncontrada);
+    }
+
+    public void recusarDoacao(Long idDoacao) {
+        Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
+        doacaoEncontrada.setStatusDoacao(StatusDoacao.RECUSADA);
+        // TODO - informar ao usuário por email que a doação foi recusada
         doacaoRepository.save(doacaoEncontrada);
     }
 
@@ -96,5 +114,21 @@ public class DoacaoService {
         novaDoacao.setPessoa(tokenService.getPessoaLogada());
         DoacaoValor doacaoValor = doacaoValorRepository.save(novaDoacao);
         return doacaoValorMapper.doacaoValorToDoacaoValorDto(doacaoValor);
+    }
+
+    public Page<DoacaoDto> pesquisarDoacoesOrganizacaoPorStatus(Long idOng, String status, Pageable pageable) {
+        StatusDoacao statusFound = status != null ? StatusDoacao.valueOf(status) : null;
+        Page<Doacao> doacoesDaOrganizacao = doacaoRepository
+                    .pesquisarDoacoesOrganizacaoPorStatus(statusFound,idOng,pageable);
+        return doacoesDaOrganizacao
+                .map(doacao -> doacaoMapper.doacaoToDoacaoDto(doacao));
+    }
+
+    public Page<DoacaoDto> pesquisarDoacoesPessoaPorStatus(Long idPessoa, String status, Pageable pageable) {
+        StatusDoacao statusFound = status != null ? StatusDoacao.valueOf(status) : null;
+        Page<Doacao> doacoesDoUsuario = doacaoRepository
+                    .pesquisarDoacoesPessoaPorStatus(statusFound, idPessoa, pageable);
+        return doacoesDoUsuario
+                .map(doacao -> doacaoMapper.doacaoToDoacaoDto(doacao));
     }
 }
