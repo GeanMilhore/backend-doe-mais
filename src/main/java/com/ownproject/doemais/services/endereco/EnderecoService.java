@@ -7,9 +7,9 @@ import com.ownproject.doemais.domain.endereco.Endereco;
 import com.ownproject.doemais.mappers.endereco.EnderecoMapper;
 import com.ownproject.doemais.repositories.endereco.EnderecoRepository;
 import com.ownproject.doemais.services.authentication.TokenService;
-import com.ownproject.doemais.services.usuario.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,12 +51,10 @@ public class EnderecoService {
         enderecoRepository.deleteById(id);
     }
 
-    public List<EnderecoDto> pesquisarEnderecosDto(Pageable pageable) {
+    public Page<EnderecoDto> pesquisarEnderecosDto(Pageable pageable) {
         return enderecoRepository
                 .findAll(pageable)
-                .stream()
-                .map(item -> enderecoMapper.enderecoToEnderecoDto(item))
-                .collect(Collectors.toList());
+                .map(item -> enderecoMapper.enderecoToEnderecoDto(item));
     }
 
     public EnderecoDto editarEndereco(Long idEndereco, EnderecoEditDto editEnderecoDto) {

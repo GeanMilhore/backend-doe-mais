@@ -4,9 +4,11 @@ import com.ownproject.doemais.domain.autorizacao.Autorizacao;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InterceptorUtils {
@@ -26,4 +28,9 @@ public class InterceptorUtils {
         List<String> splitedUrl = Arrays.asList(requisicao.getRequestURI().split("/"));
         return Long.valueOf(splitedUrl.get(splitedUrl.size() - 1));
     }
+
+    public static String recuperarPathVariableByUrl(HttpServletRequest request, String pathVariable){
+        Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        return pathVariables.get(pathVariable);
+    };
 }
