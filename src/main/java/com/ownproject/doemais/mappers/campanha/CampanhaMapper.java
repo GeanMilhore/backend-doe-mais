@@ -15,7 +15,9 @@ public class CampanhaMapper {
     public CampanhaMapper() {
         modelMapper = new ModelMapper();
         modelMapper.createTypeMap(Campanha.class, CampanhaDto.class)
-                .addMapping(campanha -> campanha.getOrganizacao().getId(), CampanhaDto::setIdOrganizacao);
+                .addMapping(campanha -> campanha.getOrganizacao().getId(), CampanhaDto::setIdOrganizacao)
+                .addMapping(campanha -> campanha.getValores().getValorArrecadado(), CampanhaDto::setValorArrecadado)
+                .addMapping(campanha -> campanha.getValores().getQuantidadeDoacoes(), CampanhaDto::setQuantidadeItensDoados);
     }
 
     public CampanhaDto campanhaToCampanhaDto(Campanha campanhaEncontrada) {
