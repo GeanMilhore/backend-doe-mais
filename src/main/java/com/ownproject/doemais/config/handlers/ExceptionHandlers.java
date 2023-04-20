@@ -1,5 +1,6 @@
 package com.ownproject.doemais.config.handlers;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.ownproject.doemais.config.handlers.exceptions.ExceptionDetails;
 import com.ownproject.doemais.config.handlers.exceptions.validationExceptionError.FieldError;
 import com.ownproject.doemais.config.handlers.exceptions.validationExceptionError.ValidationExceptionDetails;

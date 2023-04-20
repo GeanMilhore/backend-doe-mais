@@ -7,6 +7,7 @@ import com.ownproject.doemais.domain.doacao.doacaoItem.DoacaoItem;
 import com.ownproject.doemais.domain.endereco.Endereco;
 import com.ownproject.doemais.domain.pessoa.Pessoa;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -51,7 +52,7 @@ public class Doacao extends BaseRegistro {
 
     private BigDecimal valorFrete;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private StatusDoacao statusDoacao;
 }
 

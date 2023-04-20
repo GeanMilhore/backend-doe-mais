@@ -8,7 +8,9 @@ import com.ownproject.doemais.domain.doacao.Doacao;
 import com.ownproject.doemais.domain.doacao.status.StatusDoacao;
 import com.ownproject.doemais.domain.doacao.doacaoItem.DoacaoItem;
 import com.ownproject.doemais.domain.doacao.doacaoValor.DoacaoValor;
+import com.ownproject.doemais.domain.email.EmailModel;
 import com.ownproject.doemais.domain.endereco.Endereco;
+import com.ownproject.doemais.domain.organizacao.Organizacao;
 import com.ownproject.doemais.mappers.doacao.DoacaoMapper;
 import com.ownproject.doemais.mappers.doacaoItem.DoacaoItemMapper;
 import com.ownproject.doemais.mappers.doacaoValor.DoacaoValorMapper;
@@ -16,21 +18,26 @@ import com.ownproject.doemais.repositories.doacao.DoacaoRepository;
 import com.ownproject.doemais.repositories.doacaoValor.DoacaoValorRepository;
 import com.ownproject.doemais.services.authentication.TokenService;
 import com.ownproject.doemais.services.campanha.CampanhaService;
+import com.ownproject.doemais.services.email.EmailService;
 import com.ownproject.doemais.services.endereco.EnderecoService;
 import com.ownproject.doemais.services.frete.FreteService;
 import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Data
 public class DoacaoService {
     @Autowired
     private DoacaoItemMapper doacaoItemMapper;
@@ -50,6 +57,18 @@ public class DoacaoService {
     private TokenService tokenService;
     @Autowired
     private FreteService freteService;
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${projeto.notificacoes.email}")
+    private String emailProjeto;
+    @Value("${projeto.notificacoes.doacao.aceita}")
+    private String mensagemAceite;
+    @Value("${projeto.notificacoes.doacao.confirmada}")
+    private String mensagemConfirma;
+    @Value("${projeto.notificacoes.doacao.recusada}")
+    private String mensagemRecusa;
+
 
     public Doacao pesquisarDoacaoPorId(Long id){
         return doacaoRepository.findById(id)
@@ -60,23 +79,23 @@ public class DoacaoService {
     public void aceitarDoacao(Long idDoacao) {
         Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
         doacaoEncontrada.setStatusDoacao(StatusDoacao.ACEITA);
-        // TODO - informar ao usuário por email que a doação foi aceita e os próximos passos
-        doacaoRepository.save(doacaoEncontrada);
+        Doacao doacao = doacaoRepository.save(doacaoEncontrada);
+        enviarEmailDeAtualizacaoStatusDoacao(doacao, mensagemAceite);
     }
 
     @Transactional
     public void confirmarEntregaDoacao(Long idDoacao) {
         Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
         doacaoEncontrada.setStatusDoacao(StatusDoacao.ENTREGUE);
-        // TODO - informar ao usuário por email que a doação chegou a Ong
-        doacaoRepository.save(doacaoEncontrada);
+        Doacao doacao = doacaoRepository.save(doacaoEncontrada);
+        enviarEmailDeAtualizacaoStatusDoacao(doacao, mensagemConfirma);
     }
 
     public void recusarDoacao(Long idDoacao) {
         Doacao doacaoEncontrada = pesquisarDoacaoPorId(idDoacao);
         doacaoEncontrada.setStatusDoacao(StatusDoacao.RECUSADA);
-        // TODO - informar ao usuário por email que a doação foi recusada
-        doacaoRepository.save(doacaoEncontrada);
+        Doacao doacao = doacaoRepository.save(doacaoEncontrada);
+        enviarEmailDeAtualizacaoStatusDoacao(doacao, mensagemRecusa);
     }
 
     @Transactional
@@ -130,5 +149,20 @@ public class DoacaoService {
                     .pesquisarDoacoesPessoaPorStatus(statusFound, idPessoa, pageable);
         return doacoesDoUsuario
                 .map(doacao -> doacaoMapper.doacaoToDoacaoDto(doacao));
+    }
+
+    private void enviarEmailDeAtualizacaoStatusDoacao(Doacao doacao, String mensagemEmail){
+        Organizacao organizacao = doacao.getCampanha().getOrganizacao();
+        EmailModel email = new EmailModel();
+        email.setEmailFrom(emailProjeto);
+        email.setEmailTo(doacao.getPessoa().getUsuario().getEmail());
+
+        email.setText("Prezado(a) usuário(a),\n \n Trazemos atualizações sobre sua doação para campanha \""
+                +doacao.getCampanha().getNome().toLowerCase() +"\". \n Informamos que a organização \""
+                +organizacao.getNome().toLowerCase()+"\" "+mensagemEmail);
+
+        email.setSubject("Sua doação foi " + doacao.getStatusDoacao().name().toLowerCase());
+        email.setOwnerRef(organizacao.getNome());
+        emailService.sendEmail(email);
     }
 }
