@@ -14,6 +14,7 @@ import com.ownproject.doemais.domain.organizacao.Organizacao;
 import com.ownproject.doemais.mappers.doacao.DoacaoMapper;
 import com.ownproject.doemais.mappers.doacaoItem.DoacaoItemMapper;
 import com.ownproject.doemais.mappers.doacaoValor.DoacaoValorMapper;
+import com.ownproject.doemais.repositories.doacao.DoacaoItemRepository;
 import com.ownproject.doemais.repositories.doacao.DoacaoRepository;
 import com.ownproject.doemais.repositories.doacaoValor.DoacaoValorRepository;
 import com.ownproject.doemais.services.authentication.TokenService;
@@ -46,6 +47,8 @@ public class DoacaoService {
     @Autowired
     private DoacaoRepository doacaoRepository;
     @Autowired
+    private DoacaoItemRepository doacaoItemRepository;
+    @Autowired
     private DoacaoValorMapper doacaoValorMapper;
     @Autowired
     private DoacaoValorRepository doacaoValorRepository;
@@ -72,6 +75,11 @@ public class DoacaoService {
 
     public Doacao pesquisarDoacaoPorId(Long id){
         return doacaoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Doação não encontrada"));
+    }
+
+    public DoacaoItem pesquisarItemDoacaoPorId(Long id){
+        return doacaoItemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Doação não encontrada"));
     }
 

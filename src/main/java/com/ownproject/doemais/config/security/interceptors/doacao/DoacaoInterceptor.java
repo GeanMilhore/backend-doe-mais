@@ -3,6 +3,7 @@ package com.ownproject.doemais.config.security.interceptors.doacao;
 import com.ownproject.doemais.config.security.annotations.HasDoacaoPermission;
 import com.ownproject.doemais.config.security.interceptors.doacao.handlers.AceitarDoacao;
 import com.ownproject.doemais.config.security.interceptors.doacao.handlers.ConfirmarEntregaDoacao;
+import com.ownproject.doemais.config.security.interceptors.doacao.handlers.GerenciarImagemDoacao;
 import com.ownproject.doemais.config.security.interceptors.doacao.handlers.RecusarDoacao;
 import com.ownproject.doemais.config.security.interceptors.doacao.handlers.VisualizarDoacoesOrganizacao;
 import com.ownproject.doemais.config.security.interceptors.doacao.handlers.VisualizarDoacoesPessoa;
@@ -31,11 +32,13 @@ public class DoacaoInterceptor extends Interceptador {
                       ConfirmarEntregaDoacao confirmarEntregaDoacao,
                       RecusarDoacao recusarDoacao,
                       VisualizarDoacoesPessoa visualizarDoacoesPessoa,
-                      VisualizarDoacoesOrganizacao visualizarDoacoesOrganizacao){
+                      VisualizarDoacoesOrganizacao visualizarDoacoesOrganizacao,
+                      GerenciarImagemDoacao gerenciarImagemDoacao){
         super(aceitarDoacao,
                 recusarDoacao,
                 confirmarEntregaDoacao,
                 visualizarDoacoesPessoa,
-                visualizarDoacoesOrganizacao);
+                visualizarDoacoesOrganizacao,
+                gerenciarImagemDoacao);
     }
 }
