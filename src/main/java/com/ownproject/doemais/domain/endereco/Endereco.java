@@ -1,5 +1,6 @@
 package com.ownproject.doemais.domain.endereco;
 
+import com.ownproject.doemais.controllers.baseRegistro.BaseRegistro;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Endereco {
+public class Endereco extends BaseRegistro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

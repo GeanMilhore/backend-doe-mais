@@ -139,6 +139,7 @@ public class DoacaoService {
         novaDoacao.setCampanha(campanhaService.pesquisarCampanha(doacaoDto.getIdCampanha()));
         novaDoacao.setValor(doacaoDto.getValor());
         novaDoacao.setPessoa(tokenService.getPessoaLogada());
+        novaDoacao.setDataCriacao(DateUtil.dataDeHoje());
         DoacaoValor doacaoValor = doacaoValorRepository.save(novaDoacao);
         return doacaoValorMapper.doacaoValorToDoacaoValorDto(doacaoValor);
     }

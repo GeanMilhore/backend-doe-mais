@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ownproject.doemais.domain.imagem.Imagem;
 import com.ownproject.doemais.repositories.imagem.ImagemRepository;
+import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,14 @@ public class StorageService {
         s3client.putObject(new PutObjectRequest(bucketName, fileName, fileConverted));
         String urlImagem = recuperarUrlImagem(fileName);
         fileConverted.delete();
-        return imagemRepository.save(new Imagem(file.getOriginalFilename(), fileName, urlImagem));
+        return imagemRepository.save(criarNovaImagem(file, fileName, urlImagem));
+    }
+
+    private static Imagem criarNovaImagem(MultipartFile file, String fileName, String urlImagem) {
+        Imagem imagemCreated = new Imagem(file.getOriginalFilename(), fileName, urlImagem);
+        imagemCreated.setDataCriacao(DateUtil.dataDeHoje());
+        imagemCreated.setDataUltimaEdicao(DateUtil.dataDeHoje());
+        return imagemCreated;
     }
 
     public String deleteFile(Imagem imagem){

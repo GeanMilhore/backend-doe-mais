@@ -1,5 +1,6 @@
 package com.ownproject.doemais.domain.imagem;
 
+import com.ownproject.doemais.controllers.baseRegistro.BaseRegistro;
 import com.ownproject.doemais.domain.usuario.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Imagem {
+public class Imagem extends BaseRegistro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

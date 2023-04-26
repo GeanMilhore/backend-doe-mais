@@ -7,6 +7,7 @@ import com.ownproject.doemais.domain.endereco.Endereco;
 import com.ownproject.doemais.mappers.endereco.EnderecoMapper;
 import com.ownproject.doemais.repositories.endereco.EnderecoRepository;
 import com.ownproject.doemais.services.authentication.TokenService;
+import com.ownproject.doemais.utils.data.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +44,8 @@ public class EnderecoService {
     public EnderecoDto cadastrarEndereco(EnderecoPostDto enderecoDto) {
         Endereco endereco = enderecoMapper.enderecoPostDtoToEndereco(enderecoDto);
         endereco.setUsuario(tokenService.getUsuarioLogado());
+        endereco.setDataCriacao(DateUtil.dataDeHoje());
+        endereco.setDataUltimaEdicao(DateUtil.dataDeHoje());
         return enderecoMapper.enderecoToEnderecoDto(enderecoRepository.save(endereco));
     }
 
@@ -66,6 +69,7 @@ public class EnderecoService {
         enderecoEditar.setComplemento(editEnderecoDto.getComplemento());
         enderecoEditar.setLogradouro(editEnderecoDto.getLogradouro());
         enderecoEditar.setNumero(editEnderecoDto.getNumero());
+        enderecoEditar.setDataUltimaEdicao(DateUtil.dataDeHoje());
         return enderecoMapper.enderecoToEnderecoDto(enderecoRepository.save(enderecoEditar));
     }
 }
