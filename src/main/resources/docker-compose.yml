@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql-doemais
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOEMAIS_ROOT_PASSWORD}
+      MYSQL_DATABASE: doemais
+      MYSQL_USER: ${DOEMAIS_USER}
+      MYSQL_PASSWORD: ${DOEMAIS_PASSWORD}
+    ports:
+      - "3306:3306"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
