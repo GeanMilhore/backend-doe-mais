@@ -1,12 +1,12 @@
 package com.ownproject.doemais.controllers.baseRegistro;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
+
+@MappedSuperclass
 @Data
-@NoArgsConstructor
 public class BaseRegistro {
 
     protected LocalDateTime dataCriacao;
