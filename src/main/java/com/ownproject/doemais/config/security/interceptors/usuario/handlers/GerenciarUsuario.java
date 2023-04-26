@@ -14,7 +14,7 @@ public class GerenciarUsuario extends IntermediadorPermissao {
             if(usuarioLogado.getPerfil().getNome().equals("ROLE_ADMIN")) return true;
             Long idUsuario = InterceptorUtils.recuperarIdByUrl(requisicao);
             if(idUsuario == usuarioLogado.getId()) return true;
-            throw new IllegalAccessException("Usuário logado não é dono da entidade a ser alterada.");
+            throw new IllegalAccessException("Usuário logado não é dono da entidade a ser gerenciada.");
         }
         return proximaPermissao(usuarioLogado, requisicao, permissao);
     }

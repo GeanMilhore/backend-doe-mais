@@ -24,7 +24,8 @@ public class UserMapper {
         modelMapper.createTypeMap(Usuario.class, UsuarioDto.class)
                 .addMapping(Usuario::getId, UsuarioDto::setId)
                 .addMapping(usuario -> usuario.getPerfil().getNome(), UsuarioDto::setTipoUsuario)
-                .addMapping(Usuario::getEmail, UsuarioDto::setEmail);
+                .addMapping(Usuario::getEmail, UsuarioDto::setEmail)
+                .addMapping(usuario -> usuario.getImagem().getUrlImagem(), UsuarioDto::setUrlImagem);
     }
 
     public UsuarioCreatedDto usuarioToResponseDto(Usuario Usuario) {
